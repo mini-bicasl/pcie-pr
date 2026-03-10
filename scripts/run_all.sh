@@ -9,7 +9,7 @@ TESTCASES=(
     tc_mem_write tc_mem_read tc_cfg_access tc_msi tc_error_handling
 )
 COMPLETED_CASES=()
-INCOMPLETED_CASES=()
+INCOMPLETE_CASES=()
 
 for TC in "${TESTCASES[@]}"; do
     if ./scripts/run_tc.sh "$TC"; then
@@ -17,7 +17,7 @@ for TC in "${TESTCASES[@]}"; do
         COMPLETED_CASES+=("$TC")
     else
         FAIL=$((FAIL+1))
-        INCOMPLETED_CASES+=("$TC")
+        INCOMPLETE_CASES+=("$TC")
     fi
 done
 
@@ -31,8 +31,8 @@ mkdir -p "$RESULTS_DIR"
         echo "- $TC"
     done
     echo ""
-    echo "Incompleted simulations (${#INCOMPLETED_CASES[@]}):"
-    for TC in "${INCOMPLETED_CASES[@]}"; do
+    echo "Incomplete simulations (${#INCOMPLETE_CASES[@]}):"
+    for TC in "${INCOMPLETE_CASES[@]}"; do
         echo "- $TC"
     done
 } > "$RESULTS_FILE"
