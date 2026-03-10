@@ -82,6 +82,12 @@ sudo apt-get install iverilog gtkwave
 ./scripts/run_all.sh
 ```
 
+Regression summary (including completed and incomplete simulations) is saved to:
+
+```bash
+results/simulation_results.txt
+```
+
 ### Run a Single Test Case
 
 ```bash
