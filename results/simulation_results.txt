@@ -1,9 +1,7 @@
-Simulation Results (2026-03-10T12:08:18Z)
-PASS=0 FAIL=10 TOTAL=10
+Simulation Results (2026-03-10T12:10:58Z)
+PASS=10 FAIL=0 TOTAL=10
 
-Completed simulations (0):
-
-Incomplete simulations (10):
+Completed simulations (10):
 - tc_8b10b
 - tc_scrambler
 - tc_ltssm
@@ -14,3 +12,5 @@ Incomplete simulations (10):
 - tc_cfg_access
 - tc_msi
 - tc_error_handling
+
+Incomplete simulations (0):
