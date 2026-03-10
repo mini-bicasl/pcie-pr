@@ -7,6 +7,7 @@ RESULTS_FILE="${RESULTS_DIR}/simulation_results.txt"
 TESTCASES=(
     tc_8b10b tc_scrambler tc_ltssm tc_ack_nak tc_flow_ctrl
     tc_mem_write tc_mem_read tc_cfg_access tc_msi tc_error_handling
+    tc_multilane_phy
 )
 COMPLETED_CASES=()
 INCOMPLETE_CASES=()
