@@ -1,5 +1,5 @@
 #!/bin/bash
-set -u
+set -eu
 
 TC=${1:-}
 if [ -z "$TC" ]; then

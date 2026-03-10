@@ -1,5 +1,5 @@
 #!/bin/bash
-set -u
+set -eu
 PASS=0
 FAIL=0
 for TC in tc_8b10b tc_scrambler tc_ltssm tc_ack_nak tc_flow_ctrl \

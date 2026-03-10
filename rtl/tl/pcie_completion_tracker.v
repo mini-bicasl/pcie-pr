@@ -26,7 +26,7 @@ always @(posedge clk or negedge rst_n) begin
         end else if (outstanding && cpl_recv && (cpl_tag == tag_reg)) begin
             outstanding <= 1'b0;
         end else if (outstanding) begin
-            timer <= timer + 1'b1;
+            timer <= timer + 8'd1;
             if (timer == 8'hFF) timeout <= 1'b1;
         end
     end

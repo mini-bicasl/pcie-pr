@@ -1,5 +1,5 @@
 #!/bin/bash
-set -u
+set -eu
 VCD_FILE=${1:-dump.vcd}
 if [ ! -f "$VCD_FILE" ]; then
     echo "VCD file not found: $VCD_FILE"

@@ -20,12 +20,16 @@ always @(posedge clk or negedge rst_n) begin
             avail_ph <= init_ph;
             avail_pd <= init_pd;
         end else begin
-            if (consume_ph && avail_ph != 0) avail_ph <= avail_ph - 1'b1;
-            if (consume_pd && avail_pd != 0) avail_pd <= avail_pd - 1'b1;
-            if (return_credit) begin
-                avail_ph <= avail_ph + 1'b1;
-                avail_pd <= avail_pd + 1'b1;
-            end
+            case ({consume_ph && avail_ph != 0, return_credit})
+                2'b10: avail_ph <= avail_ph - 8'd1;
+                2'b01: avail_ph <= avail_ph + 8'd1;
+                default: avail_ph <= avail_ph;
+            endcase
+            case ({consume_pd && avail_pd != 0, return_credit})
+                2'b10: avail_pd <= avail_pd - 8'd1;
+                2'b01: avail_pd <= avail_pd + 8'd1;
+                default: avail_pd <= avail_pd;
+            endcase
         end
     end
 end

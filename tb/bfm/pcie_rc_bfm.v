@@ -16,10 +16,8 @@ begin
 end
 endtask
 
-always @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-        tx_data  <= 32'd0;
-        tx_valid <= 1'b0;
-    end
+initial begin
+    tx_data  = 32'd0;
+    tx_valid = 1'b0;
 end
 endmodule

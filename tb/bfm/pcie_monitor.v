@@ -9,6 +9,6 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n)
         pkt_count <= 32'd0;
     else if (link_valid)
-        pkt_count <= pkt_count + 1'b1;
+        pkt_count <= pkt_count + 32'd1;
 end
 endmodule

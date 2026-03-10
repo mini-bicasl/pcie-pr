@@ -16,7 +16,7 @@ always @(posedge clk or negedge rst_n) begin
         phy_valid <= tlp_valid;
         if (tlp_valid) begin
             phy_data <= tlp_in;
-            seq_num  <= seq_num + 1'b1;
+            seq_num  <= seq_num + 12'd1;
         end
     end
 end
