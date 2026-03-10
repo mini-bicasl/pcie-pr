@@ -123,6 +123,14 @@ results/<test_case>.log
 | TC-09 | `tc_msi` | MSI interrupt generation |
 | TC-10 | `tc_error_handling` | LCRC errors, poisoned TLP, UR, completion timeout |
 
+### PCIe 1.0 Features Not Yet Implemented in RTL
+
+The repository currently targets a simplified PCIe 1.0 endpoint model. Compared with full PCIe 1.0 capability, these features are still missing from the RTL/testbench:
+- Multi-lane link widths beyond ×1
+- MSI-X and full legacy INTx interrupt behavior
+- Full power-management behavior (including full L0s/L1 power-state protocol handling)
+- Advanced Error Reporting (AER) capability structure and reporting path
+
 ---
 
 ## References
