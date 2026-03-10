@@ -1,11 +1,16 @@
 #!/bin/bash
-set -eu
+set -euo pipefail
 
 TC=${1:-}
 if [ -z "$TC" ]; then
     echo "Usage: $0 <test_case>"
     exit 1
 fi
+
+RESULTS_DIR="results"
+LOG_FILE="${RESULTS_DIR}/${TC}.log"
+mkdir -p "$RESULTS_DIR"
+: > "$LOG_FILE"
 
 RTL_FILES="rtl/phy/pcie_8b10b_enc.v rtl/phy/pcie_8b10b_dec.v \
            rtl/phy/pcie_scrambler.v rtl/phy/pcie_descrambler.v \
@@ -20,12 +25,12 @@ RTL_FILES="rtl/phy/pcie_8b10b_enc.v rtl/phy/pcie_8b10b_dec.v \
            tb/bfm/pcie_rc_bfm.v tb/bfm/pcie_link_model.v tb/bfm/pcie_monitor.v"
 
 SIM_BIN="/tmp/sim_${TC}"
-if ! iverilog -g2012 -Wall $RTL_FILES tb/tc/${TC}.v -o "$SIM_BIN"; then
-    echo "FAIL: ${TC} (compile)"
+if ! iverilog -g2012 -Wall $RTL_FILES tb/tc/${TC}.v -o "$SIM_BIN" 2>&1 | tee -a "$LOG_FILE"; then
+    echo "FAIL: ${TC} (compile)" | tee -a "$LOG_FILE"
     exit 1
 fi
-if ! vvp "$SIM_BIN"; then
-    echo "FAIL: ${TC} (simulation)"
+if ! vvp "$SIM_BIN" 2>&1 | tee -a "$LOG_FILE"; then
+    echo "FAIL: ${TC} (simulation)" | tee -a "$LOG_FILE"
     exit 1
 fi
-echo "PASS: ${TC}"
+echo "PASS: ${TC}" | tee -a "$LOG_FILE"
