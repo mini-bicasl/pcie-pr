@@ -13,6 +13,8 @@ wire [7:0] decoded;
 wire       decoded_valid;
 wire [7:0] descrambled;
 wire       lane0_code_err;
+// Simplified multi-lane model: lane 0 is decoded and used as the shared symbol stream.
+// tx duplicates symbols across lanes for verification, so lane alignment logic is intentionally omitted.
 pcie_8b10b_dec u_dec (
     .clk(clk), .rst_n(rst_n), .code_in(serial_rx[9:0]), .valid_in(rx_valid[0]),
     .data_out(decoded), .k_char_out(), .valid_out(decoded_valid), .code_err(lane0_code_err)

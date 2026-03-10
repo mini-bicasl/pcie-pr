@@ -18,7 +18,7 @@ module pcie_cfg_space #(
 );
 reg [31:0] cfg_mem [0:DEPTH_DW-1];
 integer i;
-localparam AER_CAP_HDR_DW      = 10'h040; // byte offset 0x100
+localparam AER_CAP_HDR_DW      = 10'h040; // DWORD offset 0x40 (byte offset 0x100)
 localparam AER_UC_STATUS_DW    = 10'h041;
 localparam AER_UC_MASK_DW      = 10'h042;
 localparam AER_COR_STATUS_DW   = 10'h044;

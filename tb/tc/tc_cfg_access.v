@@ -12,6 +12,9 @@ wire [31:0] rd_data;
 wire err_cor_msg;
 wire err_nonfatal_msg;
 wire err_fatal_msg;
+localparam AER_CAP_HDR_DW     = 10'h040;
+localparam AER_COR_STATUS_DW  = 10'h044;
+localparam AER_HEADER_LOG0_DW = 10'h048;
 pcie_cfg_space dut(
     .clk(clk), .rst_n(rst_n), .wr_en(wr_en), .rd_en(rd_en), .addr_dw(addr_dw), .wr_data(wr_data),
     .corr_err(corr_err), .uncorr_nf_err(uncorr_nf_err), .uncorr_fatal_err(uncorr_fatal_err), .err_header_log(err_header_log),
@@ -31,17 +34,17 @@ initial begin
     #10 rd_en = 1; #10 rd_en = 0;
     #10;
     if (rd_data !== 32'hCAFE_BABE) $fatal(1, "cfg rw failed");
-    addr_dw = 10'h040;
+    addr_dw = AER_CAP_HDR_DW;
     #10 rd_en = 1; #10 rd_en = 0;
     #10 if (rd_data[15:0] !== 16'h0001) $fatal(1, "AER capability header missing");
     err_header_log = 32'hDEAD_BEEF;
     corr_err = 1;
     #10 corr_err = 0;
     if (!err_cor_msg) $fatal(1, "correctable error message not asserted");
-    addr_dw = 10'h044;
+    addr_dw = AER_COR_STATUS_DW;
     #10 rd_en = 1; #10 rd_en = 0;
     #10 if (rd_data[0] !== 1'b1) $fatal(1, "correctable error status bit not set");
-    addr_dw = 10'h048;
+    addr_dw = AER_HEADER_LOG0_DW;
     #10 rd_en = 1; #10 rd_en = 0;
     #10 if (rd_data !== 32'hDEAD_BEEF) $fatal(1, "AER header log not captured");
     err_header_log = 32'hBAD0_F00D;
