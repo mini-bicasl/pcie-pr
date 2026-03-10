@@ -1,0 +1,42 @@
+name: Agent auto (assign + comment on new issues)
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  assign_and_comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign issue to mini-bicasl
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              assignees: ['mini-bicasl'],
+            });
+
+      - name: Post agent checklist comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = [
+              "## 🤖 mini-bicasl agent: issue received",
+              "",
+              "I will follow: analysis → plan → implement → tests → verification → PR summary.",
+              "",
+              "**Please include**: expected behavior, repro steps, logs, and environment info.",
+            ].join("\n");
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
