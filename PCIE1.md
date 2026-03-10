@@ -22,6 +22,18 @@
 
 ---
 
+## RTL Implementation Status (this repository)
+
+The RTL in this repository now includes the PCIe 1.0 feature areas referenced throughout this document:
+- Parameterized multi-lane PHY interfaces (`LINK_WIDTH`) for widths beyond ×1
+- MSI, MSI-X vector signaling, and legacy INTx assert/deassert message generation
+- LTSSM handling for L0/L0s/L1 low-power transitions
+- AER extended capability header/status tracking with error-report message pulses
+
+This remains a learning-oriented endpoint model, but these capability blocks are now present in RTL/testbench form.
+
+---
+
 ## 1. Introduction and Background
 
 ### 1.1 History of PCI

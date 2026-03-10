@@ -120,16 +120,17 @@ results/<test_case>.log
 | TC-06 | `tc_cfg_access` | Configuration Read/Write, BAR sizing |
 | TC-07 | `tc_mem_write` | Memory Write (posted) TLP |
 | TC-08 | `tc_mem_read` | Memory Read + CplD, split completions |
-| TC-09 | `tc_msi` | MSI interrupt generation |
-| TC-10 | `tc_error_handling` | LCRC errors, poisoned TLP, UR, completion timeout |
+| TC-09 | `tc_msi` | MSI + MSI-X + legacy INTx interrupt messaging |
+| TC-10 | `tc_error_handling` | Completion timeout/error-path validation |
+| TC-11 | `tc_multilane_phy` | Multi-lane PHY symbol fanout/receive path (×4) |
 
-### PCIe 1.0 Features Not Yet Implemented in RTL
+### PCIe 1.0 Feature Coverage in RTL
 
-The repository currently targets a simplified PCIe 1.0 endpoint model. Compared with full PCIe 1.0 capability, these features are still missing from the RTL/testbench:
-- Multi-lane link widths beyond ×1
-- MSI-X and full legacy INTx interrupt behavior
-- Full power-management behavior (including full L0s/L1 power-state protocol handling)
-- Advanced Error Reporting (AER) capability structure and reporting path
+The endpoint model now includes the remaining feature set previously called out as missing:
+- Multi-lane PHY support via parameterized `LINK_WIDTH` (validated at ×4 in testbench)
+- MSI, MSI-X vector signaling, and legacy INTx assert/deassert message generation
+- LTSSM low-power handling for L0s/L1 entry/exit paths
+- AER capability header/status tracking with ERR_COR / ERR_NONFATAL / ERR_FATAL reporting pulses
 
 ---
 
