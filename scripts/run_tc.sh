@@ -10,7 +10,7 @@ fi
 RESULTS_DIR="results"
 LOG_FILE="${RESULTS_DIR}/${TC}.log"
 mkdir -p "$RESULTS_DIR"
-: > "$LOG_FILE"
+> "$LOG_FILE"
 
 RTL_FILES="rtl/phy/pcie_8b10b_enc.v rtl/phy/pcie_8b10b_dec.v \
            rtl/phy/pcie_scrambler.v rtl/phy/pcie_descrambler.v \
