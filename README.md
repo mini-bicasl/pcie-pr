@@ -88,6 +88,12 @@ Regression summary (including completed and incomplete simulations) is saved to:
 results/simulation_results.txt
 ```
 
+Per-test immediate simulation output is also saved to:
+
+```bash
+results/<test_case>.log
+```
+
 ### Run a Single Test Case
 
 ```bash
