@@ -27,11 +27,13 @@ initial begin
     #10 ordered_set_valid = 1;
     #20;
     if (!link_up) $fatal(1, "LTSSM did not reach L0");
-    if (state !== 3'd3 || tx_ordered_set !== 16'h0000) $fatal(1, "LTSSM L0 outputs mismatch");
+    if (state !== 3'd3) $fatal(1, "LTSSM state mismatch in L0");
+    if (tx_ordered_set !== 16'h0000) $fatal(1, "LTSSM ordered set mismatch in L0");
     elec_idle = 1;
     #10;
     if (state !== 3'd4 || link_up) $fatal(1, "LTSSM did not enter RECOV on electrical idle");
-    if (tx_ordered_set !== 16'hBEEF) $fatal(1, "LTSSM RECOV ordered set mismatch");
+    // In current RTL, RECOV is not explicitly listed in tx_ordered_set case statement and therefore uses default 16'hBEEF.
+    if (tx_ordered_set !== 16'hBEEF) $fatal(1, "LTSSM ordered set mismatch in RECOV");
     elec_idle = 0;
     #10;
     if (state !== 3'd3 || !link_up) $fatal(1, "LTSSM did not return to L0 from RECOV");

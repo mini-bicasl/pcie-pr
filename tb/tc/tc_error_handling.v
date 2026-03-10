@@ -1,4 +1,5 @@
 module tc_error_handling;
+localparam integer TIMEOUT_WAIT_CYCLES = 270; // 256 cycles to reach timer overflow + 14-cycle margin to reliably sample timeout pulse.
 reg clk = 0; always #5 clk = ~clk;
 reg rst_n = 0;
 reg req_issue;
@@ -40,7 +41,8 @@ initial begin
     if (outstanding) $fatal(1, "outstanding did not clear for matching completion tag");
     req_issue = 1;
     #10 req_issue = 0;
-    repeat (270) begin
+    // Timer is 8-bit and timeout pulses when it reaches 8'hFF; wait longer than 256 cycles to capture the pulse.
+    repeat (TIMEOUT_WAIT_CYCLES) begin
         #10;
         if (timeout) timeout_seen = 1;
     end
